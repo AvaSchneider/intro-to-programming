@@ -1,3 +1,4 @@
+// This is a test
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
