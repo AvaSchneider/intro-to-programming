@@ -1,10 +1,12 @@
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { ResourceListItem } from '../types';
+import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-link-docs-display-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [DatePipe, RouterLink],
   template: `
     <div class="card bg-neutral text-neutral-content w-96">
       <div class="card-body items-center text-center">
@@ -16,10 +18,18 @@ import { ResourceListItem } from '../types';
           }}</a>
           <div>
             @for (tag of link().tags; track $index) {
-              <div class="badge badge-secondary badge-outline">
-                {{ tag }}
+              <div class="badge badge-secondary badge-outline hover:badge-lg">
+                <a [routerLink]="['.']" [queryParams]="{ filter: tag }">{{
+                  tag
+                }}</a>
               </div>
             }
+          </div>
+          <div>
+            <p>
+              This was created by {{ link().createdBy }} on
+              {{ link().createdOn | date }}
+            </p>
           </div>
         </div>
       </div>
